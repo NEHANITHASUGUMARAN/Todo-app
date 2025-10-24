@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+
+    <style>
+  /* 🌿 General Page Style */
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h2, h3 {
+    text-align: center;
+    color: #333;
+  }
+
+  /* 📝 Todo Container */
+  .todo-container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 25px 35px;
+    margin-top: 40px;
+    width: 90%;
+    max-width: 400px;
+  }
+
+  /* 📥 Input and Add Button */
+  #addTask {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #bbb;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  #addTask:focus {
+    border-color: #6c63ff;
+  }
+
+  #submit {
+    background-color: #6c63ff;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+  }
+
+  #submit:hover {
+    background-color: #5b52e0;
+  }
+
+  /* 📋 Lists */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin: 8px 0;
+    transition: 0.3s;
+  }
+
+  li:hover {
+    transform: scale(1.02);
+  }
+
+  /* ✅ Task Buttons */
+  li button {
+    background-color: #00c853;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+
+  li button:hover {
+    background-color: #009624;
+  }
+
+  /* 🏁 Completed Section */
+  #doneList li {
+    background-color: #e0f7fa;
+    border-left: 5px solid #00bfa5;
+    color: #333;
+  }
+
+  #doneList li:hover {
+    transform: none;
+  }
+
+  /* 📱 Responsive Design */
+  @media (max-width: 500px) {
+    #addTask {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    #submit {
+      width: 100%;
+      margin: 0;
+    }
+  }
+</style>
+
+</head>
+<body>
+    <h2>Todo List</h2>
+    <ul id='todoList'>   
+    </ul>
+    <div>
+        <input id="addTask" type="text">
+        <button id="submit">Add Task</button>
+    </div>
+
+    <div>
+        <h3>Completed</h3>
+        <ul id="doneList">
+
+        </ul>
+    </div>
+    
+</body>
+<script>
+    let submit= document.getElementById('submit');
+    let addTask= document.getElementById('addTask');
+    
+    let todoList=document.getElementById('todoList');
+    let doneList=document.getElementById('doneList');
+    
+    let list=new Array();
+
+
+    submit.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (addTask.value !== '') {
+            list.push(addTask.value);
+            todoList.innerHTML += `
+            <li id="${list.length - 1}">
+                <button onclick="complete(${list.length - 1})">
+                ${addTask.value}
+                </button>
+            </li>`;
+            addTask.value = ""; // clear input field
+        }
+    });
+
+
+    function complete(id)
+    {
+        doneList.innerHTML +=`<li> ${list[id]} </li>`;
+        document.getElementById(id).remove();   
+    }
+</script>
+
+</html>
